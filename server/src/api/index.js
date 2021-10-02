@@ -1,20 +1,17 @@
 const router = require('express').Router();
 
-const response = require('../helpers/utils/response');
+const basicAuth = require('../helpers/auth/basicAuth');
 
-// Uncomment for authentication
-// const jwtAuth = require('../helpers/auth/jwtAuth');
-// const basicAuth = require('../helpers/auth/basicAuth');
+const UserCommand = require('./modules/users/command/domain');
 
 // Initialize basic authentication.
-// router.use(basicAuth.init());
+router.use(basicAuth.init());
 
 /**
  * @modules
+ * Users module
  */
-
-router.get('/api', (req, res) => {
-  return response.data(res, 'This is the /api endpoint', 'OK');
-});
+router.post('/api/users/login', basicAuth.isAuthenticated, UserCommand.login);
+router.post('/api/users/register', basicAuth.isAuthenticated, UserCommand.register);
 
 module.exports = router;
