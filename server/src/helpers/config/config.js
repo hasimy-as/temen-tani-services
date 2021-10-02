@@ -7,6 +7,7 @@ const store = new confidence.Store({
   secretKey: process.env.SECRET_KEY,
   publicKey: process.env.PUBLIC_KEY,
   privateKey: process.env.PRIVATE_KEY,
+  kafkaHost: process.env.KAFKA_HOST,
   basicAuth: [
     {
       username: process.env.BASIC_AUTH_USERNAME,

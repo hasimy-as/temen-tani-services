@@ -24,7 +24,7 @@ class Crypt {
       return response.error(res, 'Incorrect credentials!', CODE.FORBIDDEN);
     }
 
-    const accessToken = await jwt.sign({ email: payload.email }, config.get('/secretKey'), { expiresIn: 86400 });
+    const accessToken = await jwt.sign({ email: payload.email, roles: data.roles }, config.get('/secretKey'), { expiresIn: 86400 });
     return accessToken;
   }
 }
