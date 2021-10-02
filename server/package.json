@@ -1,0 +1,45 @@
+{
+  "name": "temen-tani-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node ./src/server.js",
+    "dev": "nodemon ./src/server.js",
+    "lint": "eslint ./",
+    "lint-fix": "npm run lint -- --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hasimy-as/temen-tani-services.git"
+  },
+  "keywords": [
+    "farming",
+    "hacktoberfest",
+    "smart-farming",
+    "temen-tani"
+  ],
+  "author": "Temen-Tani (Nadiah, Aufa, Hasimy)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hasimy-as/temen-tani-services/issues"
+  },
+  "homepage": "https://github.com/hasimy-as/temen-tani-services#readme",
+  "dependencies": {
+    "confidence": "^5.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.13.7",
+    "jsonwebtoken": "^8.5.1",
+    "passport": "^0.5.0",
+    "passport-http": "^0.3.0",
+    "validate.js": "^0.13.1",
+    "winston": "^2.4.5"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.32.0",
+    "nodemon": "^2.0.13"
+  }
+}
