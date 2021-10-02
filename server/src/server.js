@@ -12,7 +12,7 @@ const response = require('./helpers/utils/response');
 
 const app = express();
 const server = http.createServer(app);
-const PORT = !validate.isEmpty(config.get('/port')) ? config.get('/port') : 5000;
+const PORT = !validate.isEmpty(process.env.PORT) ? config.get('/port') : 5000;
 
 app.use(cors());
 app.use(express.json());
@@ -25,7 +25,6 @@ app.get('*', (req, res) => {
   logger.error('server', 'Undefined accessed.');
   return response.error(res, 'Cannot get undefined endpoint!', CODE.NOT_FOUND);
 });
-
 
 server.listen(PORT, async (err) => {
   const cx = 'server-listen';
