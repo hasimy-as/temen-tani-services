@@ -1,54 +1,40 @@
-const { v4: uuid } = require('uuid');
+const joi = require('joi');
 const mongoose = require('mongoose');
+const joigoose = require('joigoose')(mongoose, { convert: false });
 
 const { GENDER, ROLES } = require('../../../../helpers/utils/commons');
 
-const farmerSchema = new mongoose.Schema(
-  {
-    farmerId: { type: String, default: uuid() },
-    wholesaleId: {
-      type: String,
-      default: () => {
-        return this.isWithWholesale ? uuid() : '';
-      },
-      required: () => {
-        return this.isWithWholesale ? true : false;
-      }
-    },
-    name: { type: String, required: true },
-    address: { type: String, required: true },
-    gender: { type: String, enum: [GENDER.MALE, GENDER.FEMALE] },
-    nik: {
-      type: String,
-      minLength: 16,
-      maxLength: 16,
-      required: true
-    },
-    email: { type: String, required: true },
-    password: { type: String, required: true },
-    phoneNumber: { type: String, required: true },
-    roles: {
-      type: String,
-      enum: ROLES.FARMER,
-      required: true
-    },
-    landData: [
-      {
-        _id: false,
-        size: { type: String },
-        address: { type: String }
-      },
-    ],
-    commodity: [
-      {
-        _id: false,
-        name: { type: String },
-        description: { type: String }
-      }
-    ],
-    isActive: { type: Boolean, default: true },
-    isWithWholesale: { type: Boolean, default: false }
-  }
-);
+const uuid = joi.string().guid();
 
-module.exports = mongoose.model('Farmer', farmerSchema);
+const farmerSchema = joi.object({
+  farmerId: uuid,
+  name: joi.string().required(),
+  address: joi.string().required(),
+  gender: joi.string().valid(GENDER.MALE, GENDER.FEMALE).required(),
+  nik: joi.string().min(16).max(16).required(),
+  email: joi.string().regex(/^([a-zA-Z0-9_\-.]+)@([a-zA-Z0-9_\-.]+)\.([a-zA-Z]{2,5})$/).required(),
+  password: joi.string().min(6).required(),
+  phoneNumber: joi.string().regex(/^[0-9+]{10,20}$/).required(),
+  roles:  joi.string().valid(ROLES.FARMER).optional().default(ROLES.FARMER),
+  isActive: joi.string().default(true).optional(),
+  isWithWholesale: joi.string().default(false).optional(),
+  landData: joi.array().items(
+    joi.object({
+      _id: joi.forbidden(),
+      size: joi.string().required(),
+      address: joi.string().required()
+    })
+  ).required(),
+  commodity: joi.array().items(
+    joi.object({
+      _id: joi.forbidden(),
+      name: joi.string().required(),
+      description: joi.string().required()
+    })
+  ).required(),
+  wholesaleId: uuid.optional()
+});
+
+const Farmer = mongoose.model('Farmer', new mongoose.Schema(joigoose.convert(farmerSchema)));
+
+module.exports = Farmer;

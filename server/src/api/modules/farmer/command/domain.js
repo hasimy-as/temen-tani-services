@@ -30,6 +30,7 @@ class FarmerCommand {
       farmerId: uuid(),
       ...payload,
       password,
+      createdAt: new Date().toISOString()
     });
 
     if (payload.isWithWholesale) {
@@ -64,6 +65,7 @@ class FarmerCommand {
     const accessToken = await Crypt.signToken(res, farmer, { email, password });
     const result = {
       farmerId: farmer.farmerId,
+      loginId: uuid(),
       email,
       roles: farmer.roles,
       expiresIn: 86400,
