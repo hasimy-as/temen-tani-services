@@ -1,20 +1,22 @@
 const router = require('express').Router();
 
-const response = require('../helpers/utils/response');
+const jwtAuth = require('../helpers/auth/jwtAuth');
+const basicAuth = require('../helpers/auth/basicAuth');
 
-// Uncomment for authentication
-// const jwtAuth = require('../helpers/auth/jwtAuth');
-// const basicAuth = require('../helpers/auth/basicAuth');
+const FarmerCommand = require('./modules/farmer/command/domain');
+const WholesaleCommand = require('./modules/wholesale/command/domain');
 
 // Initialize basic authentication.
-// router.use(basicAuth.init());
+router.use(basicAuth.init());
 
-/**
- * @modules
- */
+/** @module: Farmer module **/
+router.post('/api/farmer/login', basicAuth.isAuthenticated, FarmerCommand.login);
+router.post('/api/farmer/register', basicAuth.isAuthenticated, FarmerCommand.register);
+router.put('/api/farmer/onboard-wholesale/:farmerId', jwtAuth.authenticateJWT, FarmerCommand.onboardWholesale);
 
-router.get('/api', (req, res) => {
-  return response.data(res, 'This is the /api endpoint', 'OK');
-});
+/** @module: Wholesale module **/
+router.post('/api/wholesale/login', basicAuth.isAuthenticated, WholesaleCommand.login);
+router.post('/api/wholesale/register', basicAuth.isAuthenticated, WholesaleCommand.register);
+
 
 module.exports = router;

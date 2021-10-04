@@ -7,12 +7,14 @@ const routes = require('./api/index');
 const connectDB = require('./database/db');
 const logger = require('./helpers/lib/logger');
 const config = require('./helpers/config/config');
-const { CODE } = require('./helpers/lib/httpCode');
+const observer = require('./api/modules/observer');
 const response = require('./helpers/utils/response');
+
+const { CODE } = require('./helpers/lib/httpCode');
 
 const app = express();
 const server = http.createServer(app);
-const PORT = !validate.isEmpty(config.get('/port')) ? config.get('/port') : 5000;
+const PORT = !validate.isEmpty(process.env.PORT) ? config.get('/port') : 5000;
 
 app.use(cors());
 app.use(express.json());
@@ -26,7 +28,6 @@ app.get('*', (req, res) => {
   return response.error(res, 'Cannot get undefined endpoint!', CODE.NOT_FOUND);
 });
 
-
 server.listen(PORT, async (err) => {
   const cx = 'server-listen';
   if (err) {
@@ -34,6 +35,7 @@ server.listen(PORT, async (err) => {
     return process.exit(1);
   }
 
+  await observer.init();
   await connectDB(config.get('/mongo_uri'));
   logger.info(cx, `Connected to port:${PORT}`);
 });
