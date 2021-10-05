@@ -35,7 +35,7 @@ server.listen(PORT, async (err) => {
     return process.exit(1);
   }
 
-  await observer.init();
+  // await observer.init();
   await connectDB(config.get('/mongo_uri'));
   logger.info(cx, `Connected to port:${PORT}`);
 });

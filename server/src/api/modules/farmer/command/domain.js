@@ -32,7 +32,8 @@ class FarmerCommand {
       password,
       createdAt: new Date().toISOString()
     });
-
+    result.password = "";
+    
     if (payload.isWithWholesale) {
       const sendToKafka = {
         topic: 'farmer-onboarding-wholesale',
@@ -99,11 +100,7 @@ class FarmerCommand {
       }
     };
 
-    const farmer = Farmer.updateOne({ farmerId: payload.farmerId }, updateData);
-    if (!farmer) {
-      logger.error(cx, 'Failed to onboard farmer.');
-      return response.error(res, 'Gagal mendaftarkan petani ke pengepul!', CODE.INTERNAL_ERROR);
-    }
+    await Farmer.updateOne({ farmerId: payload.farmerId }, updateData).exec();
 
     const sendToKafka = {
       topic: 'farmer-onboarding-wholesale',
