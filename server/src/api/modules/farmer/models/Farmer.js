@@ -35,16 +35,6 @@ const farmerSchema = joi.object({
   wholesaleId: uuid.optional()
 });
 
-const onboardWholesaleSchema = joi.object({
-  farmerId: uuid,
-  wholesaleId: uuid,
-  isWithWholesale: joi.bool().default(true).optional()
-});
-
 const Farmer = mongoose.model('Farmer', new mongoose.Schema(joigoose.convert(farmerSchema)), 'farmers');
-const FarmerOnboard = mongoose.model('FarmerOnboard', new mongoose.Schema(joigoose.convert(onboardWholesaleSchema)), 'farmers');
 
-module.exports = {
-  Farmer,
-  FarmerOnboard
-};
+module.exports = Farmer;
