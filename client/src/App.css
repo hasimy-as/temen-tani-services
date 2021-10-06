@@ -1,32 +1,54 @@
+@import '~antd/dist/antd.css';
+* {
+  animation: fade-in 0.5s ease-in-out;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+  list-style: none;
+  margin: 0;
+  outline: none;
+  padding: 0;
+  background-color: #f3f5f3;
+}
 .App {
-  text-align: center;
+  background-color: #f3f5f3;
+  min-height: 100%; 
+  /* text-align: center; */
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.image {
+  /* height:15vh;
+  width: 20vw; */
+  position: absolute;
+  bottom: 0 !important;
+  left: 0 !important;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+:root {
+  --aside-width: 17.1875rem;
+  --background-color: #F3F5F3;
+  --box-shadow-small: 0 0.3125rem 0.625em rgba(74, 74, 74, 0.03);
+  --box-shadow-medium: 0 0.3125rem 0.9375rem rgba(74, 74, 74, 0.1);
+  --box-shadow-large: 0 0.3125rem 1.25rem rgba(74, 74, 74, 0.2);
+  --disabled-color: #E0E0E0;
+  --error-color: #D0021B;
+  --filter-color:#ffffff;
+  --grey-color: #9E9E9E;
+  --light-text-color: #666666;
+  --light-primary-color: #A8E4C2;
+  --light-error-color: #c9616d;
+  --primary-color: #1EA54F;
+  --text-color: #424242;
+
+  --text-warning: #F8D227;
+  --text-error: #C25711;
+  --bg-text-error: #F0C4A9;
+  --bg-text-warning: #FDF9CE;
+  --bg-text-primary: #009425;
+
+  --ultra-light-text-color: #BDBDBD;
+  font-size: calc(100vw * 16 / 1440);
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
 
 @keyframes App-logo-spin {
   from {
