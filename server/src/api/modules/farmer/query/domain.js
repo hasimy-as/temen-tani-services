@@ -18,9 +18,9 @@ class FarmerQuery {
       return response.error(res, 'Petani tidak ditemukan!', CODE.NOT_FOUND);
     }
 
-    const data = farmer.map(farmerElm => { 
+    const data = farmer.map(farmerElm => {
       farmerElm.password = '';
-      return farmerElm; 
+      return farmerElm;
     });
 
     return response.data(res, 'Petani ditemukan.', data);
@@ -37,7 +37,7 @@ class FarmerQuery {
       logger.error(cx, 'Farmer not found.');
       return response.error(res, 'Petani tidak ditemukan!', CODE.NOT_FOUND);
     }
-    farmer.password = "";
+    farmer.password = '';
 
     return response.data(res, 'Petani ditemukan.', farmer);
   }

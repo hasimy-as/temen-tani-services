@@ -32,8 +32,8 @@ class FarmerCommand {
       password,
       createdAt: new Date().toISOString()
     });
-    result.password = "";
-    
+    result.password = '';
+
     if (payload.isWithWholesale) {
       const sendToKafka = {
         topic: 'farmer-onboarding-wholesale',
