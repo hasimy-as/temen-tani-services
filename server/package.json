@@ -13,7 +13,7 @@
     "type": "git",
     "url": "git+https://github.com/hasimy-as/temen-tani-services.git"
   },
-  "keywords": [
+  "keywords": [ 
     "farming",
     "hacktoberfest",
     "smart-farming",
@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/hasimy-as/temen-tani-services#readme",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "confidence": "^5.0.1",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
